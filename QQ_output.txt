@@ -1,0 +1,6 @@
+============================ Result ============================
+S D:\folder\file.txt
+D D:\folder\Samefile.txt
+================================================================
+S D:\folder\anotherFile.txt
+S D:\folder\anotherFile2.txt

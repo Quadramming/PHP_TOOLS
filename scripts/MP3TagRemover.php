@@ -6,8 +6,8 @@
 	// Settings
 	//================================================================
 
-	require_once('getID3-1.9.9/getid3/getid3.php');
-	require_once('getID3-1.9.9/getid3/write.php');	
+	require_once('getID3/getid3/getid3.php');
+	require_once('getID3/getid3/write.php');	
 	
 	$input  = 'mp3_input.txt';
 
@@ -74,5 +74,4 @@
 		}
 		return $arrfiles;
 	}
-	
 ?>

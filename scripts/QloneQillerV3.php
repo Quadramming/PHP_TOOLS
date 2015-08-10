@@ -1,6 +1,6 @@
 <?php
 
-	echo 'QloneQuiller - Version 3.0.0.0 - Made by Me'."\n";
+	echo 'QloneQiller - Version 3.0.0.0 - Made by Me'."\n";
 	
 	//================================================================
 	// Settings
