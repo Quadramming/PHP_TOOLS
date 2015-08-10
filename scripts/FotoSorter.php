@@ -42,9 +42,8 @@
 	
 	foreach ( $files as &$file ) {
 		$fileInfo = pathinfo($file);
-		$ext = $fileInfo['extension'];
-		if ( isset($ext) ) {
-			$ext = strtolower($ext);
+		if ( isset($fileInfo['extension']) ) {
+			$ext = strtolower($fileInfo['extension']);
 			if ( in_array( $ext, $types) ) {
 				$dir = date($format, filectime($file));
 				@mkdir( $dir );
