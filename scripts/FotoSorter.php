@@ -8,13 +8,15 @@
 
 	$input  = 'FotoSorter.ini';
 	$types  = array("jpeg", "jpg");
-	$format = "y.m.d";
-	$move   = FALSE;
+	$format = "Y.m.d";
+	$move   = TRUE;
 	
 	//================================================================
 	// Script
 	//================================================================
-		
+	
+	include("jpgExif.php");	
+
 	$inputFile = @file($input);
 	$files     = array();
 	$output    = FALSE;
@@ -45,14 +47,32 @@
 		if ( isset($fileInfo['extension']) ) {
 			$ext = strtolower($fileInfo['extension']);
 			if ( in_array( $ext, $types) ) {
-				$dir = date($format, filectime($file));
-				@mkdir( $dir );
+				
+				$exif = exif_read_data($file);
+				if ( isset($exif['DateTime']) ) {
+					$dir = exif_read_data($file)['DateTime'];
+				}
+				if ( isset($exif['DateTimeOriginal']) ) {
+					$dir = exif_read_data($file)['DateTimeOriginal'];
+				}
+				if ( isset($dir) && strlen($dir) === 19 ) {
+					$dir = str_replace(':', '.', substr($dir, 0, 10));
+				} else {
+					$dir = date($format, filectime($file));
+				}
+				
+				$dir = explode('.', $dir);
+				@mkdir( $dir[0] );
+				@mkdir( $dir[0].'/'.$dir[1] );
+				@mkdir( $dir[0].'/'.$dir[1].'/'.$dir[2] );
+				$dir = $dir[0].'/'.$dir[1].'/'.$dir[2];
+
 				$dest = $dir."/".$fileInfo['filename'].".".$ext;
 				
 				while( file_exists($dest) ) {
 					$dest = $dir."/".$fileInfo['filename'].".".rand().".".$ext;
 				}
-				
+
 				if ( $move === TRUE ) {
 					rename($file, $dest);
 				} else {
