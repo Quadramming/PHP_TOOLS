@@ -66,7 +66,9 @@
 			file_put_contents($output, "================================================================\r\n", FILE_APPEND);
 		}
 	}
-	file_put_contents($output, 'S '.$files[$lastIndex]->path, FILE_APPEND);
+	if ( $lastIndex > 0 ) {
+		file_put_contents($output, 'S '.$files[$lastIndex]->path, FILE_APPEND);
+	}
 	
 	$timeEnd = microtime(true);
 	$time = $timeEnd - $timeStart;
