@@ -8,3 +8,5 @@ MP3TagRemover - Delete MP3 TAGS
 QloneQiller - Find same files at computer
 
 QloneQleaner - Delete files from QloneQiller output
+
+FotoSorter - Put photos in dirs
