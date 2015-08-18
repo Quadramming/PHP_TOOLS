@@ -1,6 +1,6 @@
 <?php
 
-	echo 'QloneQiller - Version 3.0.0.0 - Made by Me'."\n";
+	echo 'QloneQiller - Version 3.1.0.0 - Made by Me'."\n";
 	
 	//================================================================
 	// Settings
@@ -57,18 +57,26 @@
 	
 	echo 'Outputing'."\n";
 	chdir($curDir); // getFilesFromDir can change cDir. So rewind.
-	file_put_contents($output, "============================ Result ============================\r\n");
 	
-	$lastIndex = count($files) - 1;
-	for ( $i = 0; $i < $lastIndex; $i++ ) {
-		file_put_contents($output, 'S '.$files[$i]->path."\r\n", FILE_APPEND);
-		if ( (string) $files[$i] != $files[$i+1] ) {
-			file_put_contents($output, "================================================================\r\n", FILE_APPEND);
+	file_put_contents($output, "============================ Result ============================\r\n");	
+	$lastIndex  = count($files) - 1;
+	$filesBlock = array();
+	for ( $i = 0; $i <= $lastIndex; $i++ ) {
+		$filesBlock[] = $files[$i]->path;
+		if ( $i === $lastIndex || (string) $files[$i] != $files[$i+1] ) {
+			$op = 'S';
+			sort($filesBlock, SORT_STRING);
+			foreach ( $filesBlock as $file ) {
+				file_put_contents($output, $op.' '.$file."\r\n", FILE_APPEND);
+				$op = 'D';
+			}
+			if ( $i !== $lastIndex ) {
+				file_put_contents($output, "================================================================\r\n", FILE_APPEND);
+				$filesBlock = array();
+			}
 		}
 	}
-	if ( $lastIndex > 0 ) {
-		file_put_contents($output, 'S '.$files[$lastIndex]->path, FILE_APPEND);
-	}
+	file_put_contents($output, "============================ Finish ============================", FILE_APPEND);
 	
 	$timeEnd = microtime(true);
 	$time = $timeEnd - $timeStart;

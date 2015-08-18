@@ -48,7 +48,6 @@
 			}
 		}
 	}
-	print_r($blocks);
 	
 	echo "Done. Thank you!\n";
 	Sleep(3);
