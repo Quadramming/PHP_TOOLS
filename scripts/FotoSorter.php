@@ -14,8 +14,6 @@
 	//================================================================
 	// Script
 	//================================================================
-	
-	include("jpgExif.php");	
 
 	$inputFile = @file($input);
 	$files     = array();
@@ -69,7 +67,7 @@
 
 				$dest = $dir."/".$fileInfo['filename'].".".$ext;
 				
-				while( file_exists($dest) ) {
+				while ( file_exists($dest) ) {
 					$dest = $dir."/".$fileInfo['filename'].".".rand().".".$ext;
 				}
 
